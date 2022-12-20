@@ -15,14 +15,14 @@
 :root {
   --body-font: "Jost", sans-serif;
   --body-color: #F7F9FD;
-  --primary-color: #4743c9;
+  --primary-color: #0e8132;
   --secondary-color: #00FE83;
-  --head-color: #0c266c;
+  --head-color: #0e8132;
   --section-primary-color: #f2f3f9;
   --section-color: #f5f6fc;
-  --para-color: #0c266c;
+  --para-color: #0e8132;
   --border-color: #868ea5;
-  --hover-alt-color: #291b6b;
+  --hover-alt-color: #0e8132;
 }
 
 .collapsing {

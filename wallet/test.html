@@ -1,0 +1,108 @@
+@extends('user_dashboard.layouts.app')
+
+@section('content')
+<section class="dashboard-section body-collapse pay step step-3 crypto deposit-money">
+        <div class="overlay pt-120">
+            <div class="container-fruid">
+                <div class="main-content">
+                    <div class="head-area d-flex align-items-center justify-content-between">
+                        <h4>{{ __('Send Money') }}</h4>
+                        
+                    </div>
+                    <div class="row justify-content-between pb-120">
+                        <div class="col-xl-3 col-lg-4">
+                            <div class="left-area">
+                                <ul>
+                                    <li><a  class="single-link active">{{ __('Create') }}</a></li>
+                                    <li><a  class="single-link active">{{ __('Confirmation') }}</a></li>
+                                    <li><a  class="single-link last">{{ __('Success') }}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-lg-8">
+                            <form action="#">
+                                <div class="payment-details">
+                                    <div class="top-area">
+                                        <h6>@lang('message.dashboard.send-request.send.confirmation.send-to') <strong>{{ isset($transInfo['receiver']) ? $transInfo['receiver'] : '' }}</strong></h6>
+                                    
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xxl-8 col-xl-9 col-lg-12">
+                                            <ul class="details-list">
+                                                <li>
+                                                    <b><strong>@lang('message.dashboard.confirmation.details')</strong></b>
+                                                </li>
+                                                <li>
+                                                    <span>@lang('message.dashboard.send-request.send.confirmation.transfer-amount')</span>
+                                                    <b>{{ moneyFormat($transInfo['currSymbol'], formatNumber($transInfo['amount'], $transInfo['currency_id'])) }}</b>
+                                                </li>
+                                                <li>
+                                                    <span>@lang('message.dashboard.confirmation.fee')</span>
+                                                    <b>{{ moneyFormat($transInfo['currSymbol'], formatNumber($transInfo['fee'], $transInfo['currency_id'])) }}</b>
+                                                </li>
+                                                <li>
+                                                    <span>@lang('message.dashboard.confirmation.total')</span>
+                                                    <b>{{ moneyFormat($transInfo['currSymbol'], formatNumber($transInfo['totalAmount'], $transInfo['currency_id'])) }}</b>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="checkbox-area mt-40 d-flex align-items-center justify-content-center">
+                                    <input type="checkbox" id="accept" name="accept">
+                                    <label for="accept">I accept <a href="javascript:void(0)">terms of use</a></label>
+                                </div>
+                                <div class="footer-area mt-40">
+                                    <a class="send-money-confirm-back-button" href="#">@lang('message.dashboard.button.back')</a>
+
+                                    <a href="{{url('send-money-confirm')}}" type="submit" style="
+                                background-color: var(--bs-green);color:white;
+    border: 1px solid #DDE8FF;
+    border-radius: 20px;
+    margin: 0 10px;
+    padding: 12px 40px;" id="send_money" class="sendMoneyConfirm active">@lang('message.dashboard.button.confirm')</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+@endsection
+
+@section('js')
+<script type="text/javascript">
+
+    $(document).on('click', '.sendMoneyConfirm', function (e)
+    {
+        $(".fa-spin").show()
+        $('.sendMoneyConfirmText').text("{{ __('Confirming...') }}");
+        $(this).attr("disabled", true);
+        $('.sendMoneyPaymentConfirmLink').click(function (e)
+        {
+            e.preventDefault();
+        });
+
+        //Make back button disabled and prevent click
+        $('.send-money-confirm-back-button').attr("disabled", true).click(function (e)
+        {
+            e.preventDefault();
+        });
+
+        //Make back anchor prevent click
+        $('.send-money-confirm-back-link').click(function (e)
+        {
+            e.preventDefault();
+        });
+    });
+
+    //Only go back by back button, if submit button is not clicked
+    $(document).on('click', '.send-money-confirm-back-button', function (e)
+    {
+        e.preventDefault();
+        window.history.back();
+    });
+
+</script>
+@endsection
